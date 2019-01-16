@@ -1,8 +1,8 @@
 const fs = require("fs");
 const app = (req, res) => {
   let path = req.url;
-  if (path == "/") {
-    path = "/index.html";
+  if (path.endsWith("/")) {
+    path = path + "index.html";
   }
   path = "." + path;
   provideFileAsRes = provideFileContents.bind(this, res, path);
@@ -11,10 +11,8 @@ const app = (req, res) => {
 
 const provideFileContents = function(res, filePath, exists) {
   if (exists) {
-    fs.readFile(filePath, (err,contents) => {
-      console.log(contents);
-
-      res.write(contents.toString());
+    fs.readFile(filePath, (err, contents) => {
+      res.write(contents);
       res.end();
     });
     return;
