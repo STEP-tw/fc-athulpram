@@ -7,7 +7,7 @@
   padding-right: 20px;
 }
 .navBar {
-  text-align: left;
+  margin: auto auto;
 }
 .main {
   display: flex;

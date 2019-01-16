@@ -4,7 +4,7 @@ const app = (req, res) => {
   if (path.endsWith("/")) {
     path = path + "index.html";
   }
-  path = "." + path;
+  path = "./pages" + path;
   provideFileAsRes = provideFileContents.bind(this, res, path);
   fs.exists(path, provideFileAsRes);
 };
