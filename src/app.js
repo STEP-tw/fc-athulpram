@@ -3,10 +3,14 @@ const app = (req, res) => {
   try {
     provideData(req, res);
   } catch (err) {
-    res.statusCode = 505;
-    res.statusMessage = "An unexpected error occured";
-    res.end();
+    send(res, 505, "An unexpected error occured");
   }
+};
+
+const send = function(res, statusCode = 200, statusMessage = "Ok") {
+  res.statusCode = statusCode;
+  res.statusMessage = statusMessage;
+  res.end();
 };
 
 const provideData = function(req, res) {
@@ -22,11 +26,10 @@ const provideData = function(req, res) {
 const provideFileContents = (res, err, contents) => {
   if (err == null) {
     res.write(contents);
-    res.end();
+    send(res);
     return;
   }
-  res.statusCode = 404;
-  res.end();
+  send(res, 404, "File Not Found");
 };
 
 // Export a function that can act as a handler
