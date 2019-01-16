@@ -7,10 +7,10 @@
       const hideJar = function() {
         console.log("hiding jar");
         let jar = document.getElementById("flowerJar");
-        jar.style.display = "none";
+        jar.style.visibility = "hidden";
 
-        setInterval(() => {
-          jar.style.display = "inline";
+        setTimeout(() => {
+          jar.style.visibility = "visible";
         }, 1000);
       };
     </script>
