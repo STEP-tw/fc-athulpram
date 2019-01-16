@@ -8,8 +8,10 @@
         console.log("hiding jar");
         let jar = document.getElementById("flowerJar");
         jar.style.display = "none";
-        setTimeout(1000);
-        jar.style.display = "inline";
+
+        setInterval(() => {
+          jar.style.display = "inline";
+        }, 1000);
       };
     </script>
   </head>
