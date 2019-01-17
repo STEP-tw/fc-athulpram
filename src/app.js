@@ -1,11 +1,6 @@
 const fs = require("fs");
-const app = (req, res) => {
-  try {
-    provideData(req, res);
-  } catch (err) {
-    send(res, 505, "An unexpected error occured");
-  }
-};
+const WebFrame = require("./webFrame.js");
+const app = new WebFrame();
 
 const send = function(res, statusCode, statusMessage, contents) {
   res.statusCode = statusCode;
@@ -34,7 +29,5 @@ const provideFileContents = (res, err, contents) => {
   }
   send(res, statusCode, statusMessage, contents);
 };
-
-// Export a function that can act as a handler
-
-module.exports = app;
+app.use(provideData);
+module.exports = app.handleRequest.bind(app);
