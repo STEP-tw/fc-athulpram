@@ -18,7 +18,7 @@ const provideData = function(req, res) {
   if (path.endsWith("/")) {
     path = path + "index.html";
   }
-  path = "./pages" + path;
+  path = "./public" + path;
   provideFileAsRes = provideFileContents.bind(this, res);
   fs.readFile(path, provideFileAsRes);
 };
