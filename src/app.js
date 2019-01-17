@@ -1,5 +1,6 @@
 const fs = require("fs");
 const WebFrame = require("./webFrame.js");
+const { getGuestBook, addDataToBook } = require("./guest_book.js");
 const app = new WebFrame();
 
 const send = function(res, statusCode, statusMessage, contents) {
@@ -29,5 +30,8 @@ const provideFileContents = (res, err, contents) => {
   }
   send(res, statusCode, statusMessage, contents);
 };
+app.get("/guest_book.html", getGuestBook);
+app.post("/guest_book.html", addDataToBook);
 app.use(provideData);
+
 module.exports = app.handleRequest.bind(app);

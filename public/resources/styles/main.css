@@ -17,3 +17,24 @@
 .main {
   display: flex;
 }
+.guestBookHeader {
+  text-align: center;
+  color: orange;
+}
+
+.form {
+  font-size: 30px;
+}
+
+.commentsList {
+  padding-top: 40px;
+  font-size: 30px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.msgSubmit {
+  height: 40px;
+  width: 100px;
+  font-size: 60px;
+}

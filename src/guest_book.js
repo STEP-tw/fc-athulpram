@@ -7,20 +7,22 @@ const getGuestBook = (req, res) => {
 <html>
   <head>
     <title>Guest Book</title>
+    <link rel="stylesheet" href="/resources/styles/main.css" />    
   </head>
   <body>
-    <header class="header"><a href=""><<</a>Guest Book</header>
+    <header class="guestBookHeader"><h1><a href="/index.html"><<</a>Guest Book</h1></header>
     <div id="main">
-      <form action="/guest_book.html" method="post">
-        Name : <input type="text" name="name" /><br />
-        Comment : <textarea name="comment"></textarea></br>
-         <input type="submit" />
+      <form action="/guest_book.html" method="post" class="form">
+        Name : <input type="text" name="name" /><br /><br/>
+        Comment : <textarea name="comment"></textarea><br/><br/>
+         <input type="submit" value="submit" class="msgSubmit"/>
       </form>
     </div>
        
-    <div>
-    <table><tr><th>Date</th><th>Name</th>
+    <div class="commentsList">
+    <table><tr><th>Date</th><th>Name</th><th>Comment</th></tr>
     ${generateTableFor(comments)}
+    </table>
     </div>
   </body>
 </html>
@@ -60,6 +62,7 @@ const addToGuestBook = function(comment, req, res) {
   fs.readFile(messageLog, (err, contents) => {
     let jsonFile = JSON.parse(contents);
     let comments = jsonFile.comments;
+    comment.date = new Date().toLocaleString();
     comments.push(comment);
     fs.writeFile(messageLog, JSON.stringify(jsonFile), err => {
       getGuestBook(req, res);
