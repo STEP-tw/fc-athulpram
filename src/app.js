@@ -7,9 +7,10 @@ const app = (req, res) => {
   }
 };
 
-const send = function(res, statusCode = 200, statusMessage = "Ok") {
+const send = function(res, statusCode, statusMessage, contents) {
   res.statusCode = statusCode;
   res.statusMessage = statusMessage;
+  res.write(contents);
   res.end();
 };
 
@@ -24,12 +25,14 @@ const provideData = function(req, res) {
 };
 
 const provideFileContents = (res, err, contents) => {
-  if (err == null) {
-    res.write(contents);
-    send(res);
-    return;
+  let statusCode = 200;
+  let statusMessage = "Ok";
+  if (err) {
+    statusCode = 404;
+    statusMessage = "Page Not Found";
+    contents = "Oops Page Not Found!!!...";
   }
-  send(res, 404, "File Not Found");
+  send(res, statusCode, statusMessage, contents);
 };
 
 // Export a function that can act as a handler
