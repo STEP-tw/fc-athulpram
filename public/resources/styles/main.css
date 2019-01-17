@@ -38,3 +38,10 @@
   width: 100px;
   font-size: 60px;
 }
+
+td {
+  border: 1px solid black;
+}
+th {
+  border: 1.5px solid black;
+}
