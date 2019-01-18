@@ -17,9 +17,10 @@
 .main {
   display: flex;
 }
-.guestBookHeader {
+.centeredHeader {
   text-align: center;
   color: orange;
+  border-bottom: 1px solid black;
 }
 
 .form {
@@ -46,4 +47,11 @@ td {
 }
 th {
   border: 1.5px solid black;
+}
+
+.abeliophyllumMain {
+  display: flex;
+}
+.content {
+  margin: auto auto;
 }

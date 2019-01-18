@@ -10,7 +10,7 @@ const getGuestBook = (req, res) => {
     <link rel="stylesheet" href="/resources/styles/main.css" />    
   </head>
   <body>
-    <header class="guestBookHeader"><h1><a href="/index.html"><<</a>Guest Book</h1></header>
+    <header class="centeredHeader"><h1><a href="/index.html"><<</a>Guest Book</h1></header>
     <div id="main">
       <form action="/guest_book.html" method="post" class="form">
         Name : <input type="text" name="name" /><br /><br/>
