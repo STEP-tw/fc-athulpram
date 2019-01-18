@@ -63,7 +63,7 @@ const addToGuestBook = function(comment, req, res) {
     let jsonFile = JSON.parse(contents);
     let comments = jsonFile.comments;
     comment.date = new Date().toLocaleString();
-    comments.push(comment);
+    comments.unshift(comment);
     fs.writeFile(messageLog, JSON.stringify(jsonFile), err => {
       getGuestBook(req, res);
     });
