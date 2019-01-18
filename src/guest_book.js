@@ -1,7 +1,6 @@
 const fs = require("fs");
 const messageLog = "./src/data.json";
-const getGuestBook = (req, res, webData) => {
-  let htmlFile = `<!DOCTYPE html>
+const htmlFirstHalf = `<!DOCTYPE html>
 <html>
   <head>
     <title>Guest Book</title>
@@ -18,13 +17,17 @@ const getGuestBook = (req, res, webData) => {
     </div>
        
     <div class="commentsList">
-    <table><tr><th>Date</th><th>Name</th><th>Comment</th></tr>
-    ${generateTableFor(webData.comments)}
-    </table>
+    <table><tr><th>Date</th><th>Name</th><th>Comment</th></tr>`;
+
+const htmlSecondHalf = `</table>
     </div>
   </body>
 </html>
 `;
+
+const getGuestBook = (req, res, webData) => {
+  let htmlFile =
+    htmlFirstHalf + generateTableFor(webData.comments) + htmlSecondHalf;
   res.write(htmlFile);
   res.end();
 };
