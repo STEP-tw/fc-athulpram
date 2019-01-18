@@ -12,7 +12,6 @@ class WebFrame {
       dataFile,
       function(err, content) {
         this.data = JSON.parse(content);
-        console.log(this.data);
       }.bind(this)
     );
   }
