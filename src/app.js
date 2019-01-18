@@ -1,7 +1,7 @@
 const fs = require("fs");
 const WebFrame = require("./webFrame.js");
 const { getGuestBook, addDataToBook } = require("./guest_book.js");
-const app = new WebFrame();
+const app = new WebFrame("./src/data.json");
 
 const send = function(res, statusCode, statusMessage, contents) {
   res.statusCode = statusCode;

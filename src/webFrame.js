@@ -1,3 +1,4 @@
+const fs = require("fs");
 const isMatching = (req, route) => {
   if (route.method && req.method != route.method) return false;
   if (route.url && req.url != route.url) return false;
@@ -5,8 +6,15 @@ const isMatching = (req, route) => {
 };
 
 class WebFrame {
-  constructor() {
+  constructor(dataFile) {
     this.routes = [];
+    fs.readFile(
+      dataFile,
+      function(err, content) {
+        this.data = JSON.parse(content);
+        console.log(this.data);
+      }.bind(this)
+    );
   }
   use(handler) {
     this.routes.push({ handler });
@@ -23,7 +31,7 @@ class WebFrame {
       let current = matchingRoutes[0];
       if (!current) return;
       matchingRoutes = matchingRoutes.slice(1);
-      current.handler(req, res, next);
+      current.handler(req, res, this.data, next);
     };
     next();
   }

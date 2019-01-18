@@ -1,9 +1,7 @@
 const fs = require("fs");
-const messageLog = "./src/comments.json";
-const getGuestBook = (req, res) => {
-  fs.readFile(messageLog, (err, contents) => {
-    let comments = JSON.parse(contents).comments;
-    let htmlFile = `<!DOCTYPE html>
+const messageLog = "./src/data.json";
+const getGuestBook = (req, res, webData) => {
+  let htmlFile = `<!DOCTYPE html>
 <html>
   <head>
     <title>Guest Book</title>
@@ -21,15 +19,14 @@ const getGuestBook = (req, res) => {
        
     <div class="commentsList">
     <table><tr><th>Date</th><th>Name</th><th>Comment</th></tr>
-    ${generateTableFor(comments)}
+    ${generateTableFor(webData.comments)}
     </table>
     </div>
   </body>
 </html>
 `;
-    res.write(htmlFile);
-    res.end();
-  });
+  res.write(htmlFile);
+  res.end();
 };
 
 const generateTableFor = function(comments) {
@@ -57,24 +54,20 @@ const parseData = function(data) {
   return dataObj;
 };
 
-const addToGuestBook = function(comment, req, res) {
+const addToGuestBook = function(comment, req, res, webData) {
+  comments = webData.comments;
   comment = parseData(comment);
-  fs.readFile(messageLog, (err, contents) => {
-    let jsonFile = JSON.parse(contents);
-    let comments = jsonFile.comments;
-    comment.date = new Date().toLocaleString();
-    comments.unshift(comment);
-    fs.writeFile(messageLog, JSON.stringify(jsonFile), err => {
-      getGuestBook(req, res);
-    });
-  });
+  comment.date = new Date().toLocaleString();
+  comments.unshift(comment);
+  getGuestBook(req, res, webData);
+  fs.writeFile(messageLog, JSON.stringify(webData), err => {});
 };
 
-const addDataToBook = function(req, res) {
+const addDataToBook = function(req, res, webData) {
   let contents = "";
   req.on("data", chunk => (contents += chunk));
   req.on("end", () => {
-    addToGuestBook(contents, req, res);
+    addToGuestBook(contents, req, res, webData);
   });
 };
 module.exports = {
