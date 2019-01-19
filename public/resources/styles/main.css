@@ -24,12 +24,11 @@
 }
 
 .form {
-  font-size: 30px;
+  font-size: 15px;
 }
 
 .commentsList {
   padding-top: 40px;
-  font-size: 30px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   height: 400px;

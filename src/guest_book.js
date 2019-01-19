@@ -1,5 +1,6 @@
 const fs = require("fs");
 const messageLog = "./src/data.json";
+const plusToReplace = new RegExp(/\+/, "g");
 const htmlFirstHalf = `<!DOCTYPE html>
 <html>
   <head>
@@ -22,6 +23,7 @@ const htmlFirstHalf = `<!DOCTYPE html>
   <body>
     <header class="centeredHeader"><h1><a href="/index.html"><<</a>Guest Book</h1></header>
     <div id="main">
+      <h2>Leave a Comment</h2>
       <form action="/guest_book.html" method="post" class="form">
         Name : <input type="text" name="name" /><br /><br/>
         Comment : <textarea name="comment"></textarea><br/><br/>
@@ -30,7 +32,7 @@ const htmlFirstHalf = `<!DOCTYPE html>
     </div>
        
     <div class="commentsList" id="commentsList">
-    <h1>Comments List <button onclick="loadComments()">reload</button></h1>
+    <h2>Comments<button onclick="loadComments()">&#x21bb</button></h2>
     <table><tr><th>Date</th><th>Name</th><th>Comment</th></tr>`;
 
 const htmlSecondHalf = `</table>
@@ -61,6 +63,12 @@ const generateTableFor = function(comments) {
   );
 };
 
+const decodeInputData = function(data) {
+  let name = decodeURIComponent(data.name.replace(plusToReplace, " "));
+  let comment = decodeURIComponent(data.comment.replace(plusToReplace, " "));
+  return { name, comment };
+};
+
 const parseData = function(data) {
   let dataObj = {};
   data = data.split("&");
@@ -68,7 +76,7 @@ const parseData = function(data) {
     let [key, value] = arg.split("=");
     dataObj[key] = value;
   });
-  return dataObj;
+  return decodeInputData(dataObj);
 };
 
 const addToGuestBook = function(comment, req, res, webData) {
