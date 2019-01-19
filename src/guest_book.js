@@ -4,7 +4,20 @@ const htmlFirstHalf = `<!DOCTYPE html>
 <html>
   <head>
     <title>Guest Book</title>
-    <link rel="stylesheet" href="/resources/styles/main.css" />    
+    <link rel="stylesheet" href="/resources/styles/main.css" /> 
+    <script>
+    const loadComments   = function(){
+    fetch('/guest_book.html')
+    .then(function (response) {
+      return response.text();
+    })
+    .then(function (htmlFile) {
+      let parser = new DOMParser();
+      let newDoc = parser.parseFromString(htmlFile,"text/html");
+      document.getElementById("commentsList").innerHTML = newDoc.getElementById("commentsList").innerHTML;
+    });
+  }
+    </script>
   </head>
   <body>
     <header class="centeredHeader"><h1><a href="/index.html"><<</a>Guest Book</h1></header>
@@ -16,7 +29,8 @@ const htmlFirstHalf = `<!DOCTYPE html>
       </form>
     </div>
        
-    <div class="commentsList">
+    <div class="commentsList" id="commentsList">
+    <h1>Comments List <button onclick="loadComments()">reload</button></h1>
     <table><tr><th>Date</th><th>Name</th><th>Comment</th></tr>`;
 
 const htmlSecondHalf = `</table>
