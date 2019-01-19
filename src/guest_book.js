@@ -6,19 +6,7 @@ const htmlFirstHalf = `<!DOCTYPE html>
   <head>
     <title>Guest Book</title>
     <link rel="stylesheet" href="/resources/styles/main.css" /> 
-    <script>
-    const loadComments   = function(){
-    fetch('/guest_book.html')
-    .then(function (response) {
-      return response.text();
-    })
-    .then(function (htmlFile) {
-      let parser = new DOMParser();
-      let newDoc = parser.parseFromString(htmlFile,"text/html");
-      document.getElementById("commentsList").innerHTML = newDoc.getElementById("commentsList").innerHTML;
-    });
-  }
-    </script>
+    <script src="./guest_book.js"></script>
   </head>
   <body>
     <header class="centeredHeader"><h1><a href="/index.html"><<</a>Guest Book</h1></header>
