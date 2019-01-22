@@ -30,8 +30,8 @@ const provideFileContents = (res, err, contents) => {
   }
   send(res, statusCode, statusMessage, contents);
 };
-app.get("/guest_book.html", getGuestBook);
-app.post("/guest_book.html", addDataToBook);
+app.get("/guestbook", getGuestBook);
+app.post("/guestbook", addDataToBook);
 app.use(provideData);
 
 module.exports = app.handleRequest.bind(app);

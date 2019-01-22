@@ -1,13 +1,26 @@
 const loadComments = function() {
-  fetch("/guest_book.html")
+  fetch("/guestbook")
     .then(function(response) {
       return response.text();
     })
-    .then(function(htmlFile) {
-      let parser = new DOMParser();
-      let newDoc = parser.parseFromString(htmlFile, "text/html");
-      document.getElementById("commentsList").innerHTML = newDoc.getElementById(
-        "commentsList"
-      ).innerHTML;
+    .then(function(htmlText) {
+      document.getElementById("commentsList").innerHTML = htmlText;
     });
 };
+
+const sentComments = function(event) {
+  fetch("/guestbook", {
+    method: "POST",
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      comment: document.getElementById("comment").value
+    })
+  })
+    .then(function(response) {
+      return response.text();
+    })
+    .then(function(htmlText) {
+      document.getElementById("commentsList").innerHTML = htmlText;
+    });
+};
+window.onload = loadComments;
