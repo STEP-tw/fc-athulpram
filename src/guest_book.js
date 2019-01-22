@@ -4,27 +4,8 @@ const plusToReplace = new RegExp(/\+/, "g");
 
 const getGuestBook = (req, res, webData) => {
   console.log(webData);
-  let htmlFile = generateTableFor(webData.comments);
-  res.write(htmlFile);
+  res.write(JSON.stringify(webData));
   res.end();
-};
-
-const generateTableFor = function(comments) {
-  return (
-    "<table><tr><th>Date</th><th>Name</th><th>Comment</th></tr>" +
-    comments.reduce(
-      (accumulator, comment) =>
-        accumulator +
-        "<tr><td>" +
-        comment.date.toLocaleString() +
-        "</td><td>" +
-        comment.name +
-        "</td><td>" +
-        comment.comment +
-        "</td></tr>",
-      ""
-    )
-  );
 };
 
 const addToGuestBook = function(comment, req, res, webData) {

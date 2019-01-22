@@ -1,11 +1,31 @@
 const loadComments = function() {
   fetch("/guestbook")
     .then(function(response) {
-      return response.text();
+      return response.json();
     })
-    .then(function(htmlText) {
+    .then(function(comments) {
+      console.log(comments);
+      let htmlText = generateTableFor(comments.comments);
       document.getElementById("commentsList").innerHTML = htmlText;
     });
+};
+
+const generateTableFor = function(comments) {
+  return (
+    "<table><tr><th>Date</th><th>Name</th><th>Comment</th></tr>" +
+    comments.reduce(
+      (accumulator, comment) =>
+        accumulator +
+        "<tr><td>" +
+        new Date(comment.date).toLocaleString() +
+        "</td><td>" +
+        comment.name +
+        "</td><td>" +
+        comment.comment +
+        "</td></tr>",
+      ""
+    )
+  );
 };
 
 const sentComments = function(event) {
@@ -17,9 +37,10 @@ const sentComments = function(event) {
     })
   })
     .then(function(response) {
-      return response.text();
+      return response.json();
     })
-    .then(function(htmlText) {
+    .then(function(comments) {
+      let htmlText = generateTableFor(comments.comments);
       document.getElementById("commentsList").innerHTML = htmlText;
     });
 };
