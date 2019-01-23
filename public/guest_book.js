@@ -4,7 +4,7 @@ const loadComments = function() {
       return response.json();
     })
     .then(function(comments) {
-      console.log(comments);
+      console.log(typeof comments);
       let htmlText = generateTableFor(comments.comments);
       document.getElementById("commentsList").innerHTML = htmlText;
     });
@@ -45,9 +45,6 @@ const sentComments = function(event) {
     });
 };
 
-const delete_cookie = function(name) {
-  document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-};
 window.onload = () => {
   loadComments();
 };

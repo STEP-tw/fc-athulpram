@@ -6,14 +6,9 @@ const isMatching = (req, route) => {
 };
 
 class WebFrame {
-  constructor(dataFile) {
+  constructor(data) {
     this.routes = [];
-    fs.readFile(
-      dataFile,
-      function(err, content) {
-        this.data = JSON.parse(content);
-      }.bind(this)
-    );
+    this.data = data;
   }
   use(handler) {
     this.routes.push({ handler });

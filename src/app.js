@@ -7,7 +7,10 @@ const {
   provideGuestBook,
   logUserOut
 } = require("./guest_book.js");
-const app = new WebFrame("./src/data.json");
+
+const app = new WebFrame(
+  JSON.parse(fs.readFileSync("./private/data.json", "utf-8"))
+);
 
 const send = function(res, statusCode, statusMessage, contents) {
   res.statusCode = statusCode;

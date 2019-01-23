@@ -1,7 +1,7 @@
 const fs = require("fs");
-const messageLog = "./src/data.json";
+const messageLog = "./private/data.json";
 const plusToReplace = new RegExp(/\+/, "g");
-const COMMENT_FORM = `<form action="/logout" method="POST">Name : __NameIsHere__<input onclick="delete_cookie(username)" type="submit" value="Logout"/></form><br /><br />
+const COMMENT_FORM = `<form action="/logout" method="POST">Name : __NameIsHere__<input type="submit" value="Logout"/></form><br /><br />
         Comment : <textarea name="comment" id="comment"></textarea><br /><br />
         <button onclick="sentComments()">Submit</button>`;
 
@@ -68,13 +68,8 @@ const provideGuestBook = function(req, res) {
   let username = "";
   if (cookie) {
     username = cookie.split("=")[1];
-  }
-  if (username) {
-    console.log("with user");
     htmlFile = generateHTML(GUEST_BOOK_HTML, COMMENT_FORM, username);
   } else {
-    console.log("with out user");
-
     htmlFile = generateHTML(GUEST_BOOK_HTML, LOGIN_FORM);
   }
   res.write(htmlFile);
@@ -92,7 +87,10 @@ const generateHTML = function(data, form, username) {
 };
 
 const logUserOut = function(req, res) {
-  res.setHeader("Set-Cookie", `username =`);
+  res.setHeader(
+    "Set-Cookie",
+    `username =null;expires=Thu, 01 Jan 1970 00:00:01 GMT;`
+  );
   res.statusCode = 302;
   res.setHeader("location", "/guest_book.html");
   res.end();
