@@ -32,7 +32,7 @@ const sentComments = function(event) {
   fetch("/guestbook", {
     method: "POST",
     body: JSON.stringify({
-      name: document.getElementById("name").value,
+      name: document.cookie.split("=")[1],
       comment: document.getElementById("comment").value
     })
   })
@@ -44,4 +44,10 @@ const sentComments = function(event) {
       document.getElementById("commentsList").innerHTML = htmlText;
     });
 };
-window.onload = loadComments;
+
+const delete_cookie = function(name) {
+  document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+};
+window.onload = () => {
+  loadComments();
+};

@@ -1,6 +1,12 @@
 const fs = require("fs");
 const WebFrame = require("./webFrame.js");
-const { getGuestBook, addDataToBook } = require("./guest_book.js");
+const {
+  getGuestBook,
+  addDataToBook,
+  logUserIn,
+  provideGuestBook,
+  logUserOut
+} = require("./guest_book.js");
 const app = new WebFrame("./src/data.json");
 
 const send = function(res, statusCode, statusMessage, contents) {
@@ -32,6 +38,9 @@ const provideFileContents = (res, err, contents) => {
 };
 app.get("/guestbook", getGuestBook);
 app.post("/guestbook", addDataToBook);
+app.get("/guest_book.html", provideGuestBook);
+app.post("/login", logUserIn);
+app.post("/logout", logUserOut);
 app.use(provideData);
 
 module.exports = app.handleRequest.bind(app);
